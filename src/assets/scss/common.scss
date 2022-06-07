@@ -1,4 +1,4 @@
-// プロジェクト内共通scss
+//共通css
 html {
   box-sizing: border-box;
   height: 100%;
@@ -65,6 +65,9 @@ textarea {
   font-size: 100%;
 }
 
+
+
+//ページ遷移時のアニメーション
 .page-enter-active,
 .page-leave-active {
   transition: opacity 0.3s, transform 0.3s;

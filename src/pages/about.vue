@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1 class="-title">
-      ABOUT
-    </h1>
+    <page-title label="ABOUT" />
     <div>
       <dl class="info">
         <div

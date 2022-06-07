@@ -3,7 +3,7 @@
     <div class="header__inner">
       <h1 class="header__logo headerLogo">
         <nuxt-link to="/" class="headerLogo__link">
-          Sample-Corp
+          MY BLOG
         </nuxt-link>
       </h1>
       <nav role="navigation" class="header__nav headerNav">

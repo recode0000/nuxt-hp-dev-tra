@@ -1,8 +1,12 @@
 export default {
-
   srcDir: './src',
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+
+  PageTransition: {
+    name: 'my-page',
+    mode: 'out-in'
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -28,6 +32,7 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/dateFilter'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -67,5 +72,10 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+
+  // WP_BASE_URLを環境変数として登録する
+  publicRuntimeConfig: {
+    wpBaseUrl: process.env.WP_BASE_URL
   }
 }

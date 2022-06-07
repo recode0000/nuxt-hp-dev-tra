@@ -1,8 +1,6 @@
-<template>
+<!-- <template>
   <div>
-    <h1 class="-title">
-      HOME
-    </h1>
+    <page-title label="HOME" />
     <section class="-item section">
       <div class="section__head">
         <h2 class="section__title">
@@ -20,7 +18,7 @@
         </div>
       </div>
     </section>
-    <!-- about -->
+
 
     <section class="-item section">
       <div class="section__head">
@@ -37,10 +35,10 @@
           >
             <nuxt-link :to="`/news/posts/${post.id}`" class="card__link">
               <p class="card__date">
-                {{ post.date }}
+                {{ post.date | dateFilter }}
               </p>
               <p class="card__title">
-                {{ post.title }}
+                {{ post.title.rendered }}
               </p>
             </nuxt-link>
           </div>
@@ -52,32 +50,24 @@
         </div>
       </div>
     </section>
-    <!-- news -->
+
   </div>
 </template>
 
 <script>
 export default {
   name: 'IndexPage',
-  data () {
+  // データをWPから取得し、ページコンポーネントへ直接セットする
+  async asyncData (context) {
+    // WP REST APIのベースURL
+    const baseUrl = context.$config.wpBaseUrl
+    // お知らせの記事を3件取得するとためのエンドポイントを作成
+    const newsUrl = baseUrl + 'posts?_embed&per_page=3&categories=2'
+    // 記事取得
+    const posts = await context.$axios.$get(newsUrl)
+
     return {
-      posts: [
-        {
-          id: 100,
-          date: '2022年03月10日',
-          title: '記事タイトル100'
-        },
-        {
-          id: 101,
-          date: '2022年03月10日',
-          title: '記事タイトル101'
-        },
-        {
-          id: 102,
-          date: '2022年03月10日',
-          title: '記事タイトル102'
-        }
-      ]
+      posts
     }
   }
 }
@@ -105,28 +95,10 @@ export default {
   }
   &__description {
   }
-  &__newsList {
-    &__item {
-      margin: 8px 0;
-      padding-top: 8px;
-      & + & {
-        border-top: 2px dashed $colorBorder;
-      }
-    }
-  }
 }
 .-item {
   & + & {
     margin-top: 64px;
-  }
-}
-// ページタイトル
-.-title {
-  padding: 80px 0;
-  font-size: 4rem;
-  color: $colorCorporateMain;
-  @media #{$sp} {
-    padding: 80px 0 40px;
   }
 }
 .-link {
@@ -141,32 +113,35 @@ export default {
     color: $colorWhite;
   }
 }
-// お知らせカード
-.card {
-  &__link {
-    padding: 8px 16px;
-    display: flex;
-    align-items: center;
-    column-gap: 16px;
-    transition: all 0.3s;
-    @media #{$sp} {
-      flex-direction: column;
-      align-items: flex-start;
-      row-gap: 8px;
+
+</style> -->
+
+
+<template>
+  <div class="">
+    <h1>Hello Nuxtres!</h1>
+    <p>
+      this page is renderred on th <strong>{{ rendering }}</strong>
+    </p>
+    <p v-if="rendering === 'server'">
+      first load or hard refresh is done on server side
+    </p>
+    <p v-if="rendering === 'client'">
+      navigation is done on client side.
+    </p>
+    <ul>
+      <li>refresh the page for server side renderign</li>
+      <li>click the links to see cliet side rendering</li>
+    </ul>
+    <nuxt-link to="/about">about</nuxt-link>
+  </div>
+</template>
+<script>
+export default {
+  asyncData() {
+    return {
+      rendering: process.server ? 'server' : 'client'
     }
-    &:hover {
-      background-color: $colorCorporateMain;
-      .card__date,
-      .card__title {
-        color: $colorWhite;
-      }
-    }
-  }
-  &__date {
-  }
-  &__title {
-    font-weight: bold;
-    font-size: 1.8rem;
   }
 }
-</style>
+</script>
